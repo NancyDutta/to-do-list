@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .todo-grid, .todo-input-grid{
+            display: grid;
+            grid-template-columns: 200px 150px 100px;
+            column-gap: 10px;
+            row-gap: 10px;
+            align-items: center;
+        }
+        .todo-input-grid{
+            margin-bottom: 10px;
+            align-items: stretch;
+        }
+.button-css{
+background-color: green;
+font-size: 15px;
+padding: 6px;
+color: white;
+cursor: pointer;
+border: none;
+
+} 
+.js-button-css{
+background-color: rgb(190, 7, 7);
+color: white;
+font-size: 15px;
+padding: 6px;
+cursor: pointer;
+border: none;
+}
+.cs-name, .cs-dueDate{
+font-size: 15px;
+padding: 6px;
+}
+    </style>
+</head>
+<body>
+    <h1>Todo List</h1>
+    <div class="todo-input-grid">
+    <input placeholder="Todo name" class="js-name-input cs-name">
+    <input type="date" class="js-dueDate-input cs-dueDate">
+<button class="button-css js-add-todo">Add</button>
+<div class="js-todo-List todo-grid"></div>
+</div>
+<script>
+    
+    const todolist=[
+    {name:'make food',dueDate: '2020-12-11'},
+    {name:'surve',dueDate: '2020-01-18'},
+    {name:'wash dish',dueDate: '2001-10-16'}];
+
+
+    renderTodo();
+
+
+
+    function renderTodo(){
+    let todoHtml='';
+    todolist.forEach ((todoObject ,index)=> {
+const name=todoObject.name;
+const dueDate=todoObject.dueDate;
+const html=`
+    <div>${name}</div>
+    <div>${dueDate} </div>
+    <button class="js-button-css js-delete-todo-button">Delete</button>
+    `;
+todoHtml +=html;
+    });
+    console.log(todoHtml);
+document.querySelector('.js-todo-List').innerHTML=todoHtml;
+
+document.querySelectorAll('.js-delete-todo-button').forEach((deleteButton,index)=>{
+deleteButton.addEventListener('click',()=>{
+    todolist.splice(index,1);
+    renderTodo();
+})
+})
+}
+
+
+document.querySelector('.js-add-todo').addEventListener('click',()=>{
+    Addtodo();
+});
+    function Addtodo(){
+        const button=document.querySelector('.js-name-input');
+        const name= button.value;
+        const dueDateInput=document.querySelector('.js-dueDate-input');
+        const dueDate=dueDateInput.value;
+    todolist.push({
+       name,
+       dueDate
+    });
+    
+    console.log(todolist);
+    button.value='';
+    renderTodo();
+    }
+</script>
+</body>
+</html>
